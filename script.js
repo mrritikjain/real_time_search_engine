@@ -17,14 +17,14 @@ async function fetchUser(query) {
     return;
   }
   try {
-    loading.innerHTML = "Loading...";
+    loading.style.display = "block";
     const res = await fetch(`https://api.github.com/search/users?q=${query}`);
     const data = await res.json();
     renderResults(data.items);
   } catch (err) {
     console.error(err);
   } finally {
-    loading.innerHTML = "";
+    loading.style.display = "none";
   }
 }
 
