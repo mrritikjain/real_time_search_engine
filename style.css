@@ -55,6 +55,6 @@ li {
   background-color: rgba(51, 51, 51, 0.629);
   border-bottom: 2px solid #000;
 }
-li:hover {
+.active {
   background-color: #00000064;
 }
