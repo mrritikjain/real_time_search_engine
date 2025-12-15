@@ -1,6 +1,7 @@
 let input = document.querySelector("#input");
 let loading = document.querySelector(".loading");
 let results = document.querySelector(".results");
+let usercard = document.querySelector(".user-card");
 
 function debounc(delay) {
   let timer;
@@ -30,11 +31,22 @@ async function fetchUser(query) {
 
 function renderResults(users) {
   results.innerHTML = "";
-
+  usercard.innerHTML = "";
   users.slice(0, 10).forEach((user) => {
     const li = document.createElement("li");
     li.innerText = user.login;
     results.appendChild(li);
+
+    usercard.innerHTML = `
+             <div class="user-image-box">
+            <img src="${user.avatar_url}" />
+          </div>
+           <div class="user-details">
+            <h2>Userid: ${user.id || "No Name"}</h2>
+            <p><span>Username:</span> ${user.login}</p>
+            <p><span>Score:</span> ${user.score}</p>
+          </div>
+            `;
   });
 }
 input.addEventListener("input", (e) => {
