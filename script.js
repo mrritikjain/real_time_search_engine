@@ -44,26 +44,32 @@ input.addEventListener("input", (e) => {
     fetchUser(value);
   });
 });
-let currentIndex = 1;
-input.addEventListener("keydown", (e) => {
-  const items = document.querySelectorAll(".results li");
 
+let currentIndex = -1;
+
+document.addEventListener("keydown", (e) => {
+  const items = document.querySelectorAll(".results li");
   if (!items.length) return;
 
   if (e.key === "ArrowDown") {
     currentIndex++;
-    if (currentIndex >= items.length) {
-      currentIndex = 0; // loop back
-    }
+    if (currentIndex >= items.length) currentIndex = 0;
   }
 
   if (e.key === "ArrowUp") {
     currentIndex--;
-    if (currentIndex < 0) {
-      currentIndex = items.length - 1; // loop to bottom
-    }
+    if (currentIndex < 0) currentIndex = items.length - 1;
   }
+
+  if (e.key === "Enter") {
+    if (currentIndex >= 0) {
+      input.value = items[currentIndex].innerText; // ✅ set input
+      document.querySelector(".results").innerHTML = ""; // close dropdown
+      currentIndex = -1;
+    }
+    return;
+  }
+
   items.forEach((item) => item.classList.remove("active"));
   items[currentIndex].classList.add("active");
-
 });
